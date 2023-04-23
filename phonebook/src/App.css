@@ -1,0 +1,61 @@
+body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color:cornflowerblue;
+
+}
+.main {
+  margin-left: 16px;
+  display: flex;
+  gap: 24px;
+}
+
+button {
+  margin: 10px;
+  color: white;
+  background-color: cornflowerblue;
+}
+.person-div {
+  color:darkblue;
+}
+
+.add-contact {
+  display:flex;
+  flex-direction: column;
+  gap: 5px;
+
+  
+}
+.submit-contact {
+  max-width: 40%;
+  /* border-top: 2px solid darkblue; */
+  margin-top: 20px;
+
+}
+.name {
+  flex: 1;
+}
+.number {
+  flex: 1;
+}
+.ui-container {
+  border-right: 2px solid darkblue;
+
+}
+.notification {
+  color: darkblue;
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.error-message {
+  color: red;
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
