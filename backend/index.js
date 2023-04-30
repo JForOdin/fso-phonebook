@@ -1,8 +1,10 @@
-
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
 const cors = require('cors')
+const Person = require('./models/person');
+
 
 app.use(cors());
 app.use(express.static('build'));
@@ -66,8 +68,13 @@ app.get('/info', (request,response) => {
 
   response.send("Phonebook has info for "+getTotalContacts()+" contacts."+"</br>"+new Date());
 });
-app.get('/api/persons', (request, response) => {
+/* app.get('/api/persons', (request, response) => {
   response.json(contacts)
+}); */
+app.get('/api/persons', (request, response) => {
+  Person.find({}).then(persons => {
+    response.json(persons)
+  });
 });
 
 app.delete('/api/persons/:id', (request,response) => {
@@ -75,6 +82,7 @@ app.delete('/api/persons/:id', (request,response) => {
   contacts = contacts.filter(contact => contact.id!==id);
   response.status(204).end();
 });
+/*
 app.post('/api/persons', (request,response) => {
   const id = Math.floor(Math.random()*1000000);
   const person = request.body;
@@ -99,6 +107,24 @@ app.post('/api/persons', (request,response) => {
   response.json(contact);
 
 });
+*/
+app.post('/api/persons', (request, response) => {
+  const body = request.body
+
+  if (body.name === undefined) {
+    return response.status(400).json({ error: 'name missing' })
+  }
+
+  const person = new Person({
+    name: body.name,
+    number: body.number,
+  })
+
+  person.save().then(savedPerson => {
+    response.json(savedPerson)
+  });
+});
+/*
 app.get('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id)
   console.log(id)
@@ -111,6 +137,11 @@ app.get('/api/persons/:id', (request, response) => {
   } else {
     response.status(404).end()
   }
+}); */
+app.get('/api/persons/:id', (request, response) => {
+  Person.findById(request.params.id).then(person => {
+    response.json(person)
+  });
 });
 //app.use(unknownEndpoint)
 
